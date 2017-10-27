@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.airbnb.web.mapper.JYMapper">
+
+	<insert id="insert" parameterType="com.airbnb.web.domain.Reservation">
+		INSERT INTO Reservation(
+			rsv_seq, 
+			checkin, 
+			chechout, 
+			regdate, 
+			adult, 
+			hostSerial, 
+			member_id, 
+			res_price
+			) 
+		VALUES(
+			#{rsvSeq},
+			#{checkin},
+			#{chechout},
+			now(),
+			#{adult},
+			#{hostSerial},
+			#{memberId},
+			#{resPrice}
+			);
+	</insert>
+	
+	<select id="selectList" resultType="com.airbnb.web.domain.Residence"
+		parameterType="com.airbnb.web.command.Command">
+		SELECT 
+			member_id AS memberId,
+			residence_name AS residenceName,
+			price,
+			zipcode,
+			host_serial AS hostSerial, 
+			detail_img AS detailImg,
+			info_img AS infoImg,
+			resi_content AS regiContent,
+			addr,
+			child,
+			adult,
+			teen
+		FROM Residence;
+	</select>
+	
+	<select id="selectOne" resultType="com.airbnb.web.domain.Member"
+		parameterType="com.airbnb.web.command.Command">
+	SELECT * FROM Member WHERE member_id LIKE #{action} AND member_password LIKE #{column} ;
+	</select>
+	
+	<select id="count">
+	</select>
+	  
+	<update id="update">
+	</update>
+	
+	<delete id="delete">
+	</delete>
+
+</mapper>
